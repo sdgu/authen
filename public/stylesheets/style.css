@@ -1,0 +1,154 @@
+body {
+    padding: 30px;
+    font: 14px;
+    font-family: Ubuntu, sans-serif;
+    background-color: #f2f2f2;
+}
+
+input {
+    font-family: Ubuntu, sans-serif;
+}
+
+textarea {
+    font-family: Ubuntu, sans-serif;
+}
+
+
+
+h2
+{
+	margin: 15px 0px 5px 0px;
+}
+
+h4
+{
+	color: #1a4eff;
+	margin: 10px 0px 3px 0px;
+}
+
+
+a {
+    color: #00B7FF;
+}
+
+#page {
+    margin: -40px 50px;
+    padding: 5px 20px 50px;
+    box-shadow: 0px 0px 7px #999;
+    background: #fff none repeat scroll 0% 0%;
+    position: relative;
+    max-width: 60rem;
+    min-width: 45rem;
+}
+
+#wrapper {
+    
+    position: relative;
+}
+
+#charList {
+    margin: 0 0 30px 0;
+}
+
+#charList table {
+    border-collapse: separate;
+    border-spacing: 1px;
+    background: #CCC;
+
+}
+
+#charList table th {
+    background: #EEE;
+    font-weight: 600;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+#charList table tbody {
+    padding: 0;
+    margin: 0;
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+
+#charList table td {
+    background: #FFF;
+    padding: 5px 10px;
+    text-align: center;
+}
+
+#charInfo {
+    width: 100%;
+    margin: auto;
+    margin-bottom: 10px;
+    
+}
+
+#charInfo table {
+    padding: 10px;
+    border: 1px solid #CCC;
+    background: rgba(80, 120, 255, 0.05);
+
+}
+
+#headingai
+{
+	padding-left: 10px;
+}
+
+#authorInfo 
+{
+
+    width: 100%;
+    margin: auto;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    
+}
+
+#authorInfo table {
+    padding: 10px;
+    border: 1px solid #CCC;
+    background: rgba(80, 120, 255, 0.05);
+
+}
+
+.toright
+{
+	float: right;
+
+}
+
+.variousInfo
+{
+	margin: auto;
+}
+
+.titl
+{
+	text-align: right;
+
+	display: inline-block;
+	vertical-align: top;
+	min-width: 8rem;
+	
+}
+
+#charInfo table td
+{
+	padding: 5px 0px 5px 10px;
+
+}
+
+fieldset {
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+
+#howMany
+{
+	margin: 0px 0px 10px 0px;
+
+}

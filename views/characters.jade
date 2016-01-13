@@ -1,0 +1,258 @@
+extends layout
+
+block content
+	h1= title
+	
+
+		//- br
+		//- a(href="register") Register
+
+	if (!user)
+		a(href="/login") Login
+
+		// Wrapper
+		#wrapper
+
+			h2 Character List
+
+			p Number to display (most recent on top): 
+				select#howMany
+					option(value="5") 5
+					option(value="10") 10
+					option(value="25") 25
+					option(value="all") All
+
+			#charList
+				table
+					thead
+						th Character Name
+						th Author
+						th Delete?
+					tbody
+
+			table.variousInfo
+				tr
+					td
+						h2 Character Info
+					td
+						h2#headingai Author Info
+				tr
+					td
+						#charInfo
+							
+							table
+								tr
+									td.titl
+										strong Character Name: 
+									td
+										| <span id="charInfoName"></span>
+								tr
+									td.titl
+										strong Formes: 
+									td
+										| <span id="charInfoFormes"></span>
+								tr
+									td.titl
+										strong Abilities: 
+									td
+										| <span id="charInfoAb"></span>
+								tr
+									td.titl
+										strong Description: 
+									td
+										| <span id="charInfoDesc"></span>
+								tr
+									td.titl
+										strong Author:
+									td 
+										| <span id="authorName"></span>
+					td.toright
+						#authorInfo
+							
+							table
+								tr
+									td.titl
+										strong Other Creations: 
+
+			h2 Add Character
+
+			p Adding disabled for guests.
+
+			//- #addChar
+			//- 	fieldset
+			//- 		h4 Author: 
+			//- 		p#author #{user.username}
+			//- 		//-input#inputAuthor(type="text" placeholder="Author")
+			//- 		h4 Character Name: 
+			//- 		input#inputCharName(type="text" placeholder="Character Name")
+			//- 		h4 Formes: 
+			//- 		textarea#inputFormes(placeholder="Formes" rows="10" cols="30")
+			//- 		br
+			//- 		h4 Abilities: 
+			//- 		textarea#inputAbilities(placeholder="Abilities" rows="10" cols="30")
+			//- 		br
+			//- 		h4 Description: 
+			//- 		textarea#inputDesc(placeholder="Description" rows="10" cols="30")
+
+
+	if (user)
+
+		p logged in as #{user.username}
+		a(href="/logout") Logout
+
+		// Wrapper
+		#wrapper
+
+			h2 Character List
+
+			p Number to display (most recent on top): 
+				select#howMany
+					option(value="5") 5
+					option(value="10") 10
+					option(value="25") 25
+					option(value="all") All
+
+			#charList
+				table
+					thead
+						th Character Name
+						th Author
+						th Delete?
+					tbody
+
+			table.variousInfo
+				tr
+					td
+						h2 Character Info
+					td
+						h2#headingai Author Info
+				tr
+					td
+						#charInfo
+							
+							table
+								tr
+									td.titl
+										strong Character Name: 
+									td
+										| <span id="charInfoName"></span>
+								tr
+									td.titl
+										strong Formes: 
+									td
+										| <span id="charInfoFormes"></span>
+								tr
+									td.titl
+										strong Abilities: 
+									td
+										| <span id="charInfoAb"></span>
+								tr
+									td.titl
+										strong Description: 
+									td
+										| <span id="charInfoDesc"></span>
+								tr
+									td.titl
+										strong Author:
+									td 
+										| <span id="authorName"></span>
+					td.toright
+						#authorInfo
+							
+							table
+								tr
+									td.titl
+										strong Other Creations: 
+									td
+										| <span id="otherCreations"></span>
+
+
+
+
+			h2 Add Character
+
+		if (user.username == "guest")
+			p Adding disabled for guests.
+		else if (user.username != "guest")
+			#addChar
+				fieldset
+					h4 Author: 
+					p#author #{user.username}
+					//-input#inputAuthor(type="text" placeholder="Author")
+					h4 Character Name: 
+					input#inputCharName(type="text" placeholder="Character Name")
+					h4 Formes: 
+					textarea#inputFormes(placeholder="Formes" rows="10" cols="30")
+					br
+					h4 Abilities: 
+					textarea#inputAbilities(placeholder="Abilities" rows="10" cols="30")
+					br
+					h4 Description: 
+					textarea#inputDesc(placeholder="Description" rows="10" cols="30")
+					br
+					button#btnAddChar Add Character
+	//- if (user.username == "guest")
+	//- 	p logged in as #{user.username}
+	//- 	a(href="/logout") Logout
+
+	//- 	// Wrapper
+	//- 	#wrapper
+	//- 		h2 Character List
+
+	//- 		p Number to display (most recent on top): 
+	//- 			select#howMany
+	//- 				option(value="5") 5
+	//- 				option(value="10") 10
+	//- 				option(value="25") 25
+	//- 				option(value="all") All
+
+	//- 		#charList
+	//- 			table
+	//- 				thead
+	//- 					th Character Name
+	//- 					th Author
+	//- 					th Delete?
+	//- 				tbody
+	//- 		table.variousInfo
+	//- 			tr
+	//- 				td
+	//- 					h2 Character Info
+	//- 				td
+	//- 					h2#headingai Author Info
+	//- 			tr
+	//- 				td
+	//- 					#charInfo
+							
+	//- 						table
+	//- 							tr
+	//- 								td.titl
+	//- 									strong Character Name: 
+	//- 								td
+	//- 									| <span id="charInfoName"></span>
+	//- 							tr
+	//- 								td.titl
+	//- 									strong Formes: 
+	//- 								td
+	//- 									| <span id="charInfoFormes"></span>
+	//- 							tr
+	//- 								td.titl
+	//- 									strong Abilities: 
+	//- 								td
+	//- 									| <span id="charInfoAb"></span>
+	//- 							tr
+	//- 								td.titl
+	//- 									strong Description: 
+	//- 								td
+	//- 									| <span id="charInfoDesc"></span>
+	//- 							tr
+	//- 								td.titl
+	//- 									strong Author:
+	//- 								td 
+	//- 									| <span id="authorName"></span>
+	//- 				td.toright
+	//- 					#authorInfo
+							
+	//- 						table
+	//- 							tr
+	//- 								td.titl
+	//- 									strong Other Creations: 
