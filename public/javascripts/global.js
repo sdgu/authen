@@ -129,6 +129,7 @@ function populateStoryTable()
             tableContent += "<tr>";
             tableContent += '<td><a href="#" class="linkshowstory" rel="' + this.title + '">' + this.title + '</a></td>';
             tableContent += '<td><a href="#" class="linkshowauth" rel="' + this.author + '">' + this.author + '</a></td>';
+            tableContent += "<td></td>";
             tableContent += '<td><a href="#" class="linkdeletechar" rel="' + this._id + '">delete</a></td>';
             tableContent += '</tr>';
 
@@ -183,6 +184,7 @@ function populateTable() {
                     tableContent += '<tr>';
                     tableContent += '<td><a href="#" class="linkshowchar" rel="' + this.character.name + '">' + this.character.name + '</a></td>';
                     tableContent += '<td><a href="#" class="linkshowauth" rel="' + this.author + '">' + this.author + '</a></td>';
+                    tableContent += "<td></td>"
                     tableContent += '<td><a href="#" class="linkdeletechar" rel="' + this._id + '">delete</a></td>';
                     tableContent += '</tr>';
                 }
