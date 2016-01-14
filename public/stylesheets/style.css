@@ -50,28 +50,28 @@ a {
     margin: 0 0 30px 0;
 }
 
-#charList, #storyList table {
+#charList table, #storyList table {
     border-collapse: separate;
     border-spacing: 1px;
     background: #CCC;
 
 }
 
-#charList, #storyList table th {
+#charList table th, #storyList table th {
     background: #EEE;
     font-weight: 600;
     padding: 10px 20px;
     text-align: center;
 }
 
-#charList, #storyList table tbody {
+#charList table tbody, #storyList table tbody {
     padding: 0;
     margin: 0;
     border-collapse: collapse;
     border-spacing: 0px;
 }
 
-#charList, #storyList table td {
+#charList table td, #storyList table td {
     background: #FFF;
     padding: 5px 10px;
     text-align: center;
@@ -84,7 +84,7 @@ a {
     
 }
 
-#charInfo, #storyInfo table {
+#charInfo table, #storyInfo table {
     padding: 10px;
     border: 1px solid #CCC;
     background: rgba(80, 120, 255, 0.05);
@@ -134,7 +134,7 @@ a {
 	
 }
 
-#charInfo, #storyInfo table td
+#charInfo table td, #storyInfo table td
 {
 	padding: 5px 0px 5px 10px;
 
