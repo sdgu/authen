@@ -77,14 +77,14 @@ a {
     text-align: center;
 }
 
-#charInfo {
+#charInfo, #storyInfo {
     width: 100%;
     margin: auto;
     margin-bottom: 10px;
     
 }
 
-#charInfo table {
+#charInfo, #storyInfo table {
     padding: 10px;
     border: 1px solid #CCC;
     background: rgba(80, 120, 255, 0.05);
@@ -119,7 +119,7 @@ a {
 
 }
 
-.variousInfo
+.variousInfo, .storyInfo
 {
 	margin: auto;
 }
@@ -134,7 +134,7 @@ a {
 	
 }
 
-#charInfo table td
+#charInfo, #storyInfo table td
 {
 	padding: 5px 0px 5px 10px;
 

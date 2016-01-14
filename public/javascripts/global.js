@@ -1,5 +1,6 @@
 // Charlist data array for filling in info box
 var charListData = [];
+var storyListData = [];
 
 
     
@@ -11,9 +12,12 @@ $(document).ready(function() {
     //alert($("#addChar fieldset p#author").text());
     // Populate the user table on initial page load
     populateTable();
+    populateStoryTable();
     $('#charList table tbody').on('click', 'td a.linkshowchar', showCharInfo);
 
     $("#charList table tbody").on("click", "td a.linkshowauth", showAuthorInfo);
+
+    $("#storyList table tbody").on("click", "td a.linkshowstory", showStoryInfo);
 
     $("#btnAddChar").on("click", addChar);
     //when page is loaded, number to display goes back to default 5
@@ -111,6 +115,34 @@ function addStory(event)
 
 }
 
+function populateStoryTable()
+{
+    var tableContent = "";
+
+    $.getJSON("/stories/storylist", function(data)
+    {
+        //would become problematic if a lot of data
+        storyListData = data;
+
+        $.each(data.reverse(), function(index, vaule)
+        {
+            tableContent += "<tr>";
+            tableContent += '<td><a href="#" class="linkshowstory" rel="' + this.title + '">' + this.title + '</a></td>';
+            tableContent += '<td><a href="#" class="linkshowauth" rel="' + this.author + '">' + this.author + '</a></td>';
+            tableContent += '<td><a href="#" class="linkdeletechar" rel="' + this._id + '">delete</a></td>';
+            tableContent += '</tr>';
+
+
+        });
+
+        $('#storyList table tbody').html(tableContent);
+    });
+};
+
+
+
+
+
 // Fill table with data
 function populateTable() {
 
@@ -122,6 +154,8 @@ function populateTable() {
     // jQuery AJAX call for JSON
     $.getJSON( '/characters/characterlist', function( data ) {
 
+
+        //would become problematic if a lot of data
         charListData = data;
 
         // if (selectedToDisplay == 5)
@@ -139,9 +173,6 @@ function populateTable() {
         // }
 
         // For each item in our JSON, add a table row and cells to the content string
-
-
-
 
         $.each(data.reverse(), function(index, value){
 
@@ -233,4 +264,25 @@ function showAuthorInfo(event)
     });
 
    // alert(allChars);
+}
+
+function showStoryInfo(event)
+{
+    event.preventDefault();
+
+    var thisStory= $(this).attr("rel");
+    var arrayPos = storyListData.map(function(arrayItem)
+    {
+        return arrayItem.title;
+    }).indexOf(thisStory);
+
+    var thisStoryObject = storyListData[arrayPos];
+
+    $("#storyTitle").text(thisStoryObject.title);
+    $("#storyChars").text(thisStoryObject.characters);
+    $("#storyTags").text(thisStoryObject.tags);
+    $("#storyItself").text(thisStoryObject.story);
+
+
+    //alert(thisStoryObject.title);
 }

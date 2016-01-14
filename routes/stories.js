@@ -53,6 +53,16 @@ router.get("/", function(req, res, next)
 	}
 });
 
+router.get("/storylist", function(req, res)
+{
+	var db = req.db;
+	var collection = storycoll;
+	collection.find({}, {}, function(err, docs)
+	{
+		res.json(docs);
+	});
+});
+
 
 var works = mongoose.model("works", authorSchema, "authors");
 
