@@ -93,6 +93,24 @@ router.post("/addchar", function(req, res)
 	var abilities = req.body.abilities;
 	var desc = req.body.description;
 
+	if (formes.indexOf(", ") > -1)
+	{
+		formesArr = formes.split(", ");
+	}
+	else
+	{
+		formesArr = [formes];
+	}
+
+	if (abilities.indexOf(", ") > -1)
+	{
+		abilitiesArr = abilities.split(", ");
+	}
+	else
+	{
+		abilitiesArr = [abilities];
+	}
+
 
 	//require unique name
 	var newChar = collection(
@@ -101,8 +119,8 @@ router.post("/addchar", function(req, res)
 		character:
 		{
 			name: charName,
-			formes: [formes],
-			abilities: [abilities],
+			formes: formesArr,
+			abilities: abilitiesArr,
 			description: desc,
 			level: 0
 

@@ -97,13 +97,14 @@ function addStory(event)
         dataType: "JSON"
     }).done(function(res)
     {
-        if (res.message == "")
+        if (res.msg == "")
         {
             $("#addStory fieldset input").val("");
             $("#addStory fieldset textarea").val("");
         }
         else
         {
+            alert("there's an error in the else?");
             alert("Error: " + res.msg);
         }
     });

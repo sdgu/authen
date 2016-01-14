@@ -5,11 +5,19 @@ var mongoose = require("mongoose");
 
 var storySchema = mongoose.Schema(
 {
+	title: String,
 	author: String,
 	characters: [String],
 	tags: [String],
 	story: String
 
+});
+
+var authorSchema = mongoose.Schema(
+{
+	author: String,
+	characters: [String],
+	stories: [String]
 });
 
 var storycoll = mongoose.model("storycoll", storySchema, "stories");
@@ -35,7 +43,7 @@ router.get("/", function(req, res, next)
 			user: req.user
 		});
 	}
-	else
+	else //maybe redirect to login so that req.body.routes.path works fine
 	{
 		res.render("stories",
 		{
@@ -44,6 +52,10 @@ router.get("/", function(req, res, next)
 		});
 	}
 });
+
+
+var works = mongoose.model("works", authorSchema, "authors");
+
 
 router.post("/addstory", function(req, res, next)
 {
@@ -57,7 +69,52 @@ router.post("/addstory", function(req, res, next)
 	var story = req.body.story;
 	var author = req.body.author;
 
+	if (characters.indexOf(", ") > -1)
+	{
+		charArr = characters.split(", ");
+	}
+	else
+	{
+		charArr = [characters];
+	}
+
+	if (tags.indexOf(", ") > -1)
+	{
+		tagArr = tags.split(", ");
+	}
+	else
+	{
+		tagArr = [tags];
+	}
+
+	var newStory = collection(
+	{
+		author: author,
+		title: title,
+		characters: charArr,
+		tags: tagArr,
+		story: story
+	});
+
 	console.log(req.body);
+
+	works.findOneAndUpdate(
+	{
+		author: author
+	},
+	{
+		"$push": {stories : title}
+	},
+	function(err, docs)
+	{
+		console.log("this is before the save: " + err);
+		newStory.save(function(err)
+		{
+			console.log("after: " + err);
+			res.send(
+				(err == null) ? {msg: ""} : {msg: err});
+		});
+	});
 
 
 

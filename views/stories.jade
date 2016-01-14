@@ -4,15 +4,30 @@ block content
 
 	h1= title
 	//-p Logged in as #{user.username}
-
+	a(href="login") Login
 	p Stories of the universe.
+
+
+	#wrapper
+
+		h2 Story List
+
+		#storyList
+			table
+				thead
+					th Title
+					th Author
+					th Delete?
+				tbody
+					
+
 
 
 	h2 Add Story
 	#addStory
 		fieldset
 			h4 Author: 
-			p#storyAuthor #{user.username}	
+			p#storyAuthor #{user.username}
 			h4 Story Title:
 			input#inputStoryTitle(type="text" placeholder="Story title")
 			h4 Characters: 

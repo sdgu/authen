@@ -46,32 +46,32 @@ a {
     position: relative;
 }
 
-#charList {
+#charList, #storyList {
     margin: 0 0 30px 0;
 }
 
-#charList table {
+#charList, #storyList table {
     border-collapse: separate;
     border-spacing: 1px;
     background: #CCC;
 
 }
 
-#charList table th {
+#charList, #storyList table th {
     background: #EEE;
     font-weight: 600;
     padding: 10px 20px;
     text-align: center;
 }
 
-#charList table tbody {
+#charList, #storyList table tbody {
     padding: 0;
     margin: 0;
     border-collapse: collapse;
     border-spacing: 0px;
 }
 
-#charList table td {
+#charList, #storyList table td {
     background: #FFF;
     padding: 5px 10px;
     text-align: center;
