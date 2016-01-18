@@ -72,6 +72,8 @@ function addChar(event)
         if (res.msg == "")
         {
             //when submitting, form gets refreshed
+            alert("Character Added Successfully.");
+            $('html,body').scrollTop(0);
             $("#addChar fieldset input").val("");
             $("#addChar fieldset textarea").val("");
             
@@ -158,9 +160,11 @@ function updateChar(event)
     {
         if (response.msg == "")
         {
-            alert("?")
+
             $("#updateChar fieldset input").val("");
             $("#updateChar fieldset textarea").val("");
+            $('html,body').scrollTop(0);
+            alert("Update Successful.");
         }
         else
         {
@@ -232,7 +236,8 @@ function populateTable() {
 
         // For each item in our JSON, add a table row and cells to the content string
 
-        $.each(data.reverse(), function(index, value){
+        $.each(data.reverse(), function(index, value)
+        {
 
             if (selectedToDisplay != "all")
             {
@@ -241,7 +246,7 @@ function populateTable() {
                     tableContent += '<tr>';
                     tableContent += '<td><a href="#" class="linkshowchar" rel="' + this.character.name + '">' + this.character.name + '</a></td>';
                     tableContent += '<td><a href="#" class="linkshowauth" rel="' + this.author + '">' + this.author + '</a></td>';
-                    tableContent += '<td><a href="#" class="linkupdate" rel="' + this._id + '">Load to Update</a></td>';
+                    tableContent += '<td><a href="#" class="linkupdate" rel="' + this._id + '">Update</a></td>';
                     tableContent += '<td><a href="#" class="linkdeletechar" rel="' + this._id + '">delete</a></td>';
                     tableContent += '</tr>';
                 }
@@ -251,6 +256,7 @@ function populateTable() {
                 tableContent += '<tr>';
                 tableContent += '<td><a href="#" class="linkshowchar" rel="' + this.character.name + '">' + this.character.name + '</a></td>';
                 tableContent += '<td><a href="#" class="linkshowauth" rel="' + this.author + '">' + this.author + '</a></td>';
+                tableContent += '<td><a href="#" class="linkupdate" rel="' + this._id + '">Update</a></td>';
                 tableContent += '<td><a href="#" class="linkdeletechar" rel="' + this._id + '">delete</a></td>';
                 tableContent += '</tr>';
             }
@@ -269,6 +275,9 @@ function showCharInfo(event) {
 
     // Prevent Link from Firing
     event.preventDefault();
+
+    //$("html, body").animate({ scrollTop: $('.variousInfo').offset().top }, 1000);
+
 
     // Retrieve username from link rel attribute
     var thisCharName = $(this).attr('rel');
@@ -313,16 +322,14 @@ function loadCharInfo(event) {
     //alert(arrayPosition);
 
     var thisCharObject = charListData[arrayPosition];
-    //alert(thisCharObject.character.name);
     //Populate Info Box
     $("#updatingID").text(thisCharObject._id);
     $("#updatingAuthor").text(thisCharObject.author);
 
     $('#updateCharName').val(thisCharObject.character.name);
-
-    $('#updateFormes').text(thisCharObject.character.formes);
-    $('#updateAbilities').text(thisCharObject.character.abilities);
-    $('#updateDesc').text(thisCharObject.character.description);
+    $('#updateFormes').val(thisCharObject.character.formes);
+    $('#updateAbilities').val(thisCharObject.character.abilities);
+    $('#updateDesc').val(thisCharObject.character.description);
 
 };
 

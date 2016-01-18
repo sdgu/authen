@@ -34,10 +34,12 @@ var workscoll = mongoose.model("workscoll", authorSchema, "authors");
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) 
   	{ 
-  		return true; //next(); 
+  		return true; //
+  		//next(); 
   	}
   else return false;
   req.session.error = 'Please sign in!';
+  //req.session.returnTo = req.path;
   //res.redirect('/login');
 }
 
@@ -70,7 +72,7 @@ router.get("/characterlist", function(req, res)
 {
 	var db = req.db;
 	var collection = charcoll;
-	collection.find({}, {}, function(err, docs)
+	collection.find({}, {}, {sort: {'_id': 1}}, function(err, docs)
 	{
 		res.json(docs);
 	});
@@ -79,7 +81,7 @@ router.get("/characterlist", function(req, res)
 router.put("/updatechar", function(req, res)
 {
 	var collection = charcoll;
-	console.log("o.o");
+	//console.log("o.o");
 	var charToUpdate = req.body.id;
 	var auth = req.body.author;
 	var name = req.body.name;
@@ -102,6 +104,8 @@ router.put("/updatechar", function(req, res)
 	{
 		//collection.character.name = "pasta";
 		console.log(docs);
+		res.send((err == null) ? {msg: ""} : {msg: err});
+
 	});
 });
 
@@ -127,6 +131,10 @@ router.post("/addchar", function(req, res)
 	{
 		formesArr = formes.split(", ");
 	}
+	else if (formes.indexOf("\n") > -1)
+	{
+		formesArr = formes.split("\n");
+	}
 	else
 	{
 		formesArr = [formes];
@@ -135,6 +143,10 @@ router.post("/addchar", function(req, res)
 	if (abilities.indexOf(", ") > -1)
 	{
 		abilitiesArr = abilities.split(", ");
+	}
+	else if (abilities.indexOf("\n") > -1)
+	{
+		abilitiesArr = abilities.split("\n");
 	}
 	else
 	{

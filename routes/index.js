@@ -64,6 +64,7 @@ router.post("/register", function(req, res)
 
 router.get("/login", function(req, res)
 {
+	console.log(req.route.path);
 	res.render("login", {user: req.user});
 });
 
