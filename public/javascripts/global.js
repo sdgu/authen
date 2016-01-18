@@ -17,11 +17,17 @@ $(document).ready(function() {
 
     $("#charList table tbody").on("click", "td a.linkshowauth", showAuthorInfo);
 
+    $("#charList table tbody").on("click", "td a.linkupdate", loadCharInfo);
+    //also make it jump down to the relevant area
+
     $("#storyList table tbody").on("click", "td a.linkshowstory", showStoryInfo);
+
+
 
     $("#btnAddChar").on("click", addChar);
     //when page is loaded, number to display goes back to default 5
     $("#btnAddStory").on("click", addStory);
+    $("#btnUpdateChar").on("click", updateChar);
     $("#howMany option:eq(0)").prop("selected", true);
 
 
@@ -115,6 +121,57 @@ function addStory(event)
 
 }
 
+function updateChar(event)
+{
+
+    event.preventDefault();
+
+
+
+   
+    var charID = $("#updatingID").text();
+    var authorFixed = $("#updatingAuthor").val();
+    var newName = $("#updateCharName").val();
+    var newFormes = $("#updateFormes").val();
+    var newAbilities = $("#updateAbilities").val();
+    var newDesc = $("#updateDesc").val();
+
+    //alert(charID);
+
+    var updateChara = 
+    {
+        "id" : charID,
+        "author" : authorFixed,
+        "name" : newName,
+        "formes" : newFormes,
+        "abilities" : newAbilities,
+        "desc" : newDesc
+    }
+
+    $.ajax(
+    {
+        type: "PUT",
+        data: updateChara,
+        url: "/characters/updatechar",
+        dataType: "JSON"
+    }).done(function(response)
+    {
+        if (response.msg == "")
+        {
+            alert("?")
+            $("#updateChar fieldset input").val("");
+            $("#updateChar fieldset textarea").val("");
+        }
+        else
+        {
+            alert("Error: " + response.msg);
+        }
+
+        populateTable();
+    });
+
+}
+
 function populateStoryTable()
 {
     var tableContent = "";
@@ -184,7 +241,7 @@ function populateTable() {
                     tableContent += '<tr>';
                     tableContent += '<td><a href="#" class="linkshowchar" rel="' + this.character.name + '">' + this.character.name + '</a></td>';
                     tableContent += '<td><a href="#" class="linkshowauth" rel="' + this.author + '">' + this.author + '</a></td>';
-                    tableContent += "<td></td>"
+                    tableContent += '<td><a href="#" class="linkupdate" rel="' + this._id + '">Load to Update</a></td>';
                     tableContent += '<td><a href="#" class="linkdeletechar" rel="' + this._id + '">delete</a></td>';
                     tableContent += '</tr>';
                 }
@@ -232,6 +289,40 @@ function showCharInfo(event) {
     $('#charInfoFormes').text(thisCharObject.character.formes);
     $('#charInfoAb').text(thisCharObject.character.abilities);
     $('#charInfoDesc').text(thisCharObject.character.description);
+
+};
+
+function loadCharInfo(event) {
+
+
+    // Prevent Link from Firing
+    event.preventDefault();
+
+    $("html, body").animate({ scrollTop: $('#updateHere').offset().top }, 1000);
+
+    // Retrieve username from link rel attribute
+    var thisCharID = $(this).attr('rel');
+    //alert(thisCharID);
+
+    // Get Index of object based on id value
+    var arrayPosition = charListData.map(function(arrayItem) 
+        { 
+            return arrayItem._id; 
+        }).indexOf(thisCharID);
+
+    //alert(arrayPosition);
+
+    var thisCharObject = charListData[arrayPosition];
+    //alert(thisCharObject.character.name);
+    //Populate Info Box
+    $("#updatingID").text(thisCharObject._id);
+    $("#updatingAuthor").text(thisCharObject.author);
+
+    $('#updateCharName').val(thisCharObject.character.name);
+
+    $('#updateFormes').text(thisCharObject.character.formes);
+    $('#updateAbilities').text(thisCharObject.character.abilities);
+    $('#updateDesc').text(thisCharObject.character.description);
 
 };
 

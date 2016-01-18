@@ -76,6 +76,36 @@ router.get("/characterlist", function(req, res)
 	});
 });
 
+router.put("/updatechar", function(req, res)
+{
+	var collection = charcoll;
+	console.log("o.o");
+	var charToUpdate = req.body.id;
+	var auth = req.body.author;
+	var name = req.body.name;
+	var formes = req.body.formes;
+	var abi = req.body.abilities;
+	var desc = req.body.desc;
+
+	console.log(charToUpdate);
+
+	collection.findOneAndUpdate(
+	{
+		_id : charToUpdate
+	},
+	{
+		"character.name" : name,
+		"character.formes" : formes,
+		"character.abilities" : abi,
+		"character.description" : desc
+	}, function(err, docs)
+	{
+		//collection.character.name = "pasta";
+		console.log(docs);
+	});
+});
+
+
 
 router.post("/addchar", function(req, res)
 {

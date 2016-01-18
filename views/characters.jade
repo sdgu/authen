@@ -123,7 +123,7 @@ block content
 					thead
 						th Character Name
 						th Author
-						th Update
+						th Load to Update
 						th Delete?
 					tbody
 
@@ -204,6 +204,29 @@ block content
 					textarea#inputDesc(placeholder="Description" rows="10" cols="30")
 					br
 					button#btnAddChar Add Character
+
+			h2#updateHere Update Character
+
+		if (user.username == "guest")
+			p Updating disabled for guests.
+		else if (user.username != "guest")
+			#updateChar
+				fieldset
+					p#updatingID test
+					h4 Author: 
+					p#updatingAuthor 
+					h4 Update Character Name:
+					input#updateCharName(type="text")
+					h4 Update Formes:
+					textarea#updateFormes(rows="10" cols="30")
+					br
+					h4 Update Abilities: 
+					textarea#updateAbilities(rows="10" cols="30")
+					br
+					h4 Update Description
+					textarea#updateDesc(rows="10" cols="30")
+					br
+					button#btnUpdateChar Update Character
 	//- if (user.username == "guest")
 	//- 	p logged in as #{user.username}
 	//- 	a(href="/logout") Logout
