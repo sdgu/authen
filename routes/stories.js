@@ -67,6 +67,37 @@ router.get("/storylist", function(req, res)
 var works = mongoose.model("works", authorSchema, "authors");
 
 
+
+router.put("/updatestory", function(req, res, next)
+{
+	var collection = storycoll;
+	var storyToUpdate = req.body.id;
+	var title = req.body.title;
+	var characters = req.body.characters;
+	var tags = req.body.tags;
+	var story = req.body.story;
+
+	collection.findOneAndUpdate(
+	{
+		_id : storyToUpdate
+	},
+	{
+		"title" : title,
+		"characters" : characters,
+		"tags" : tags,
+		"story" : story
+	}, function(err, docs)
+	{
+		//collection.character.name = "pasta";
+		console.log(docs);
+		res.send((err == null) ? {msg: ""} : {msg: err});
+
+	});
+
+
+});
+
+
 router.post("/addstory", function(req, res, next)
 {
 	var db = req.db;

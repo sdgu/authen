@@ -3,7 +3,21 @@ extends layout
 block content
 	h1= title
 	a(href="/login") Login
-	p Highlights of the characters and stories will be here
+	br
 	a(href="/characters") Characters
 	br
 	a(href="stories") Stories
+	p Highlights of the characters and stories will be here
+
+	#randStories
+		table
+			thead
+				th Title
+				th Author
+			tbody
+
+
+
+
+
+script(src='/javascripts/randoms.js')
