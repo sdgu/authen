@@ -3,9 +3,15 @@ extends layout
 block content
 
 	h1= title
+
+	p
+		a(href="/") Home
+		|  | 
+		a(href="/characters") Characters
+		|  | 
+		a(href="/stories") Stories
 	
 	if (!user)
-		p Stories of the universe.
 		a(href="login") Login
 		
 
@@ -53,28 +59,13 @@ block content
 									td
 										| <span id="storyItself"></span>
 
-
-		h2 Add Story
-		#addStory
-			fieldset
-				h4 Author: 
-				p#storyAuthor #{user.username}
-				h4 Story Title:
-				input#inputStoryTitle(type="text" placeholder="Story title")
-				h4 Characters: 
-				textarea#inputStoryCharacters(placeholder="Characters" rows="10" cols="30")
-				h4 Tags: 
-				textarea#inputTags(placeholder="Tags" rows="10" cols="30")
-				h4 Story: 
-				textarea#inputStory(placeholder="Story" rows="10" cols="30")
-				br
-				if (user == "" || user == "guest")
-					p Adding disabled for guests.
-				else
-					button#btnAddStory Add Story
+		if (user == "" || user == "guest")
+			p Adding disabled for guests.
+		else
+			button#btnAddStory Add Story
 	else
-		p Stories of the universe.
-		p Logged in as #{user.username}
+
+		p logged in as #{user.username}
 		a(href="/logout") Logout
 		
 		#wrapper

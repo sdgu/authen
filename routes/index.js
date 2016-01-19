@@ -14,19 +14,30 @@ function ensureAuthenticated(req, res, next) {
   //res.redirect('/login');
 }
 
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) 
+  	{ 
+  		return true; //next(); 
+  	}
+  else return false;
+  req.session.error = 'Please sign in!';
+  //res.redirect('/login');
+}
+
 /* GET home page. */
 router.get('/', function(req, res, next) 
 {
 	
-	// if (ensureAuthenticated(req, res, next))
-	// {
-	// 	res.render('index', 
- //  		{ 
- //  			title: 'OCAPPA',
- //  			user: req.user
- //  		});
-	// }
-	//else
+	if (ensureAuthenticated(req, res, next))
+	{
+		res.render('index', 
+  		{ 
+  			title: 'OCAPPA',
+  			user: req.user
+  		});
+	}
+	else
 	{
 		res.render('index', 
   		{ 

@@ -6,21 +6,115 @@ block content
 
 
 	h1= title
-	a(href="/login") Login
-	br
-	a(href="/characters") Characters
-	br
-	a(href="stories") Stories
-	p Highlights of the characters and stories will be here
+	p
+		a(href="/") Home
+		|  | 
+		a(href="/characters") Characters
+		|  | 
+		a(href="/stories") Stories
 
-	#randStories
-		table
-			thead
-				th Title
-				th Author
-			tbody
-
+	if (!user)
+		a(href="/login") Login
+	else
+		p logged in as #{user.username}
+		a(href="/logout") Logout
 
 
 
-script(src='/javascripts/randoms.js')
+	p This is the site of OCAPPA Studios. By the way, OCAPPA stands for Original Creations / Content + C(K)appa (the emote). The main canon we are working on is the Dotaball Aoh universe. Content may be a bit crass so beware. For more inquiries, feel free to send an email to searqq at gmail dot com.
+
+	table
+		tr
+			td
+				p
+					strong Here are some stories
+			td
+				p
+					strong Here are some characters
+		tr
+			td
+				#randStories
+					table
+						thead
+							th Title
+							th Author
+						tbody
+			td
+				#randChars
+					table
+						thead
+							th Name
+							th Author
+						tbody
+
+
+	table.variousInfo
+		tr
+			td.titl
+				h2 Story Info
+
+			td
+				h2 Character Info
+
+		tr
+			td
+				#storyInfo
+					table
+						tr
+							td.titl
+								strong Story Title:  
+							td
+								| <span id="storyTitle"></span>
+						tr
+							td.titl
+								strong Characters: 
+							td
+								| <span id="storyChars"></span>
+						tr
+							td.titl
+								strong Tags: 
+							td
+								| <span id="storyTags"></span>
+						tr
+							td.titl
+								strong Story: 
+							td
+								| <span id="storyItself"></span>
+			td
+				#charInfo
+							
+					table
+						tr
+							td.titl
+								strong Character Name: 
+							td
+								| <span id="charInfoName"></span>
+						tr
+							td.titl
+								strong Formes: 
+							td
+								| <span id="charInfoFormes"></span>
+						tr
+							td.titl
+								strong Abilities: 
+							td
+								| <span id="charInfoAb"></span>
+						tr
+							td.titl
+								strong Description: 
+							td
+								| <span id="charInfoDesc"></span>
+						tr
+							td.titl
+								strong Level:
+							td
+								| <span id="charLevel"></span>
+						tr
+							td.titl
+								strong Author:
+							td 
+								| <span id="authorName"></span>
+
+
+
+
