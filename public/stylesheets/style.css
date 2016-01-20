@@ -91,6 +91,31 @@ a {
 
 }
 
+#charInfo table td, #storyInfo table td
+{
+    padding: 5px 0px 5px 10px;
+
+}
+
+.charInfo, .storyInfo
+{
+    width: 100%;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.charInfo table, .storyInfo table
+{
+    padding: 10px;
+    border: 1px solid #CCC;
+    background: rgba(80, 120, 255, 0.05);
+}
+
+.charInfo table td, .storyInfo table td
+{
+    padding: 5px 0px 5px 10px;
+}
+
 #headingai
 {
 	padding-left: 10px;
@@ -139,11 +164,7 @@ a {
 	
 }
 
-#charInfo table td, #storyInfo table td
-{
-	padding: 5px 0px 5px 10px;
 
-}
 
 fieldset {
     border: 0;
