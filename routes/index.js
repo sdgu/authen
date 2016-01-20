@@ -15,16 +15,6 @@ function ensureAuthenticated(req, res, next) {
 }
 
 
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) 
-  	{ 
-  		return true; //next(); 
-  	}
-  else return false;
-  req.session.error = 'Please sign in!';
-  //res.redirect('/login');
-}
-
 /* GET home page. */
 router.get('/', function(req, res, next) 
 {

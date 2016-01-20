@@ -1,4 +1,4 @@
-extends layout
+extends layoutchar
 
 block content
 	h1= title
@@ -40,8 +40,8 @@ block content
 				tr
 					td
 						h2 Character Info
-					td
-						h2#headingai Author Info
+					//- td
+					//- 	h2#headingai Author Info
 				tr
 					td
 						#charInfo
@@ -77,13 +77,13 @@ block content
 										strong Author:
 									td 
 										| <span id="authorName"></span>
-					td.toright
-						#authorInfo
+					//- td.toright
+					//- 	#authorInfo
 							
-							table
-								tr
-									td.titl
-										strong Other Creations: 
+					//- 		table
+					//- 			tr
+					//- 				td.titl
+					//- 					strong Other Creations: 
 
 			h2 Add Character
 
@@ -136,8 +136,8 @@ block content
 				tr
 					td
 						h2 Character Info
-					td
-						h2#headingai Author Info
+					//- td
+					//- 	h2#headingai Author Info
 				tr
 					td
 						#charInfo
@@ -174,15 +174,15 @@ block content
 									td 
 										| <span id="authorName"></span>
 
-					td.toright
-						#authorInfo
+					//- td.toright
+					//- 	#authorInfo
 							
-							table
-								tr
-									td.titl
-										strong Other Creations: 
-									td
-										| <span id="otherCreations"></span>
+					//- 		table
+					//- 			tr
+					//- 				td.titl
+					//- 					strong Other Creations: 
+					//- 				td
+					//- 					| <span id="otherCreations"></span>
 
 
 
@@ -218,7 +218,7 @@ block content
 			#updateChar
 				fieldset
 					p#updatingID test
-					h4 Author: 
+					h4 Editor: 
 					p#updatingAuthor 
 					h4 Update Character Name:
 					input#updateCharName(type="text")

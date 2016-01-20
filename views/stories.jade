@@ -1,4 +1,4 @@
-extends layout
+extends layoutstor
 
 block content
 
@@ -12,7 +12,7 @@ block content
 		a(href="/stories") Stories
 	
 	if (!user)
-		a(href="login") Login
+		a(href="/login") Login
 		
 
 
@@ -132,7 +132,7 @@ block content
 		#updateStory
 			fieldset
 				p#updatingStoryID test
-				h4 Author: 
+				h4 Editor: 
 				p #{user.username}
 				h4 Update Story Title: 
 				input#updateStoryTitle(type="text")

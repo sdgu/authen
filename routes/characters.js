@@ -131,6 +131,10 @@ router.post("/addchar", function(req, res)
 	{
 		formesArr = formes.split(", ");
 	}
+	else if (formes.indexOf(",") > -1)
+	{
+		formesArr = formes.split(",");
+	}
 	else if (formes.indexOf("\n") > -1)
 	{
 		formesArr = formes.split("\n");
@@ -143,6 +147,10 @@ router.post("/addchar", function(req, res)
 	if (abilities.indexOf(", ") > -1)
 	{
 		abilitiesArr = abilities.split(", ");
+	}
+	if (abilities.indexOf(",") > -1)
+	{
+		abilitiesArr = abilities.split(",");
 	}
 	else if (abilities.indexOf("\n") > -1)
 	{

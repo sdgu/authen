@@ -57,7 +57,7 @@ router.get("/storylist", function(req, res)
 {
 	var db = req.db;
 	var collection = storycoll;
-	collection.find({}, {}, function(err, docs)
+	collection.find({}, {}, {sort: {'_id': 1}}, function(err, docs)
 	{
 		res.json(docs);
 	});
@@ -77,14 +77,49 @@ router.put("/updatestory", function(req, res, next)
 	var tags = req.body.tags;
 	var story = req.body.story;
 
+
+	if (characters.indexOf(", ") > -1)
+	{
+		charArr = characters.split(", ");
+	}
+	else if (characters.indexOf(",") > -1)
+	{
+		charArr = characters.split(",");
+	}
+	else if (characters.indexOf("\n") > -1)
+	{
+		charArr = characters.split("\n");
+	}
+	else
+	{
+		charArr = [characters];
+	}
+
+	if (tags.indexOf(", ") > -1)
+	{
+		tagArr = tags.split(", ");
+	}
+	else if (tags.indexOf(",") > -1)
+	{
+		tagArr = tags.split(",");
+	}
+	else if (tags.indexOf("\n") > -1)
+	{
+		tagArr = tags.split("\n");
+	}
+	else
+	{
+		tagArr = [tags];
+	}
+
 	collection.findOneAndUpdate(
 	{
 		_id : storyToUpdate
 	},
 	{
 		"title" : title,
-		"characters" : characters,
-		"tags" : tags,
+		"characters" : charArr,
+		"tags" : tagArr,
 		"story" : story
 	}, function(err, docs)
 	{
@@ -114,6 +149,14 @@ router.post("/addstory", function(req, res, next)
 	{
 		charArr = characters.split(", ");
 	}
+	else if (characters.indexOf(",") > -1)
+	{
+		charArr = characters.split(",");
+	}
+	else if (characters.indexOf("\n") > -1)
+	{
+		charArr = characters.split("\n");
+	}
 	else
 	{
 		charArr = [characters];
@@ -122,6 +165,14 @@ router.post("/addstory", function(req, res, next)
 	if (tags.indexOf(", ") > -1)
 	{
 		tagArr = tags.split(", ");
+	}
+	else if (tags.indexOf(",") > -1)
+	{
+		tagArr = tags.split(",");
+	}
+	else if (tags.indexOf("\n") > -1)
+	{
+		tagArr = tags.split("\n");
 	}
 	else
 	{

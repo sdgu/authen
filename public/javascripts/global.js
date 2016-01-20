@@ -449,8 +449,8 @@ function showStoryInfo(event)
     var thisStoryObject = storyListData[arrayPos];
 
     $("#storyTitle").text(thisStoryObject.title);
-    $("#storyChars").text(thisStoryObject.characters);
-    $("#storyTags").text(thisStoryObject.tags);
+    $("#storyChars").text(thisStoryObject.characters.join(", "));
+    $("#storyTags").text(thisStoryObject.tags.join(", "));
     $("#storyItself").text(thisStoryObject.story);
 
 

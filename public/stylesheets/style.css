@@ -121,7 +121,12 @@ a {
 
 .variousInfo, .storyInfo
 {
-	margin: auto;
+	/* margin: auto; */
+}
+
+.indexInfo
+{
+    margin: auto;
 }
 
 .titl

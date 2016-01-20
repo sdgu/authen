@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var mongoose = require("mongoose");
 var dburi = "mongodb://<user>:<pass>@ds039145.mongolab.com:39145/ocappa";
+var elmongo = require("elmongo");
 //mongoose.connect(dburi);
 var connextion = mongoose.connect(dburi);
 var db = connextion.connection;
@@ -22,6 +23,7 @@ var users = require('./routes/users');
 var characters = require('./routes/characters');
 var authors = require("./routes/authors");
 var stories = require("./routes/stories");
+var ocappadex = require("./routes/ocappadex");
 
 
 var app = express();
@@ -53,6 +55,7 @@ app.use('/users', users);
 app.use('/characters', characters);
 app.use("/authors", authors);
 app.use("/stories", stories);
+app.use("/ocappadex", ocappadex);
 
 
 
