@@ -3,13 +3,44 @@ extends layoutdex
 block content
 
 	h1= title
-	p#dong dong
-	h4 Search by keyword(s): 
+	p
+		a(href="/") Home
+		|  | 
+		a(href="/characters") Characters
+		|  | 
+		a(href="/stories") Stories
+		|  | 
+		a(href="/ocappadex") Dex
+
+	table
+		tr
+			td
+				h4 Search by keyword: 
+			td
+				h4 Search by author: 
+
+		tr
+			td
+				input#keywordSearch(type="text" placeholder="ex: the pasta")
+				button#btnKeySearch Go
+			td
+				input#authSearch(type="text")
+				button#btnAuthSearch Go
+
+		tr
+			td
+				h4 Search by character(s):
+			td
+				h4 Search by tag(s):
+
+		tr
+			td
+				input#charSearch(type="text" placeholder="separate, by, commas")
+				button#btnCharSearch Go
+			td
+				input#tagSearch(type="text" placeholder="separate, by, commas")
+				button#btnTagSearch Go
 	
-	input#keywordSearch(type="text")
-	
-	button#btnKeySearch Go
-	br
 
 	p#displayHere Results
 
