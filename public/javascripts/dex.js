@@ -555,7 +555,7 @@ function getByTag(event)
 			if (intersect_safe(prevRes, storyRes).length > 0)
 			{
 				overlapping.push(intersect_safe(prevRes, storyRes));
-				alert(overlapping[0][0].title);
+				//alert(overlapping[0][0].title);
 
 			}
 
@@ -596,6 +596,15 @@ function getByTag(event)
 
 			storyDetailContent += '</td></tr></table>';
 		}
+
+			var result = overlapping.shift().filter(function(v) 
+			{
+				return overlapping.every(function(a) {
+					return a.indexOf(v) !== -1;
+				});
+			});
+			//result[0] is an array of jsons
+			alert(result[0]);
 
 			$("#displayHere").html(charQueryContent + "<br />" + storyQueryContent);
 			$("#displayDetails").html(charDetailContent + "<br />" + storyDetailContent);
