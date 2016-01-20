@@ -86,10 +86,44 @@ router.put("/updatechar", function(req, res)
 	var auth = req.body.author;
 	var name = req.body.name;
 	var formes = req.body.formes;
-	var abi = req.body.abilities;
+	var abilities = req.body.abilities;
 	var desc = req.body.desc;
 
-	console.log(charToUpdate);
+	//console.log(charToUpdate);
+
+	if (formes.indexOf(", ") > -1)
+	{
+		formesArr = formes.split(", ");
+	}
+	else if (formes.indexOf(",") > -1)
+	{
+		formesArr = formes.split(",");
+	}
+	else if (formes.indexOf("\n") > -1)
+	{
+		formesArr = formes.split("\n");
+	}
+	else
+	{
+		formesArr = [formes];
+	}
+
+	if (abilities.indexOf(", ") > -1)
+	{
+		abilitiesArr = abilities.split(", ");
+	}
+	if (abilities.indexOf(",") > -1)
+	{
+		abilitiesArr = abilities.split(",");
+	}
+	else if (abilities.indexOf("\n") > -1)
+	{
+		abilitiesArr = abilities.split("\n");
+	}
+	else
+	{
+		abilitiesArr = [abilities];
+	}
 
 	collection.findOneAndUpdate(
 	{
@@ -97,13 +131,13 @@ router.put("/updatechar", function(req, res)
 	},
 	{
 		"character.name" : name,
-		"character.formes" : formes,
-		"character.abilities" : abi,
+		"character.formes" : formesArr,
+		"character.abilities" : abilitiesArr,
 		"character.description" : desc
 	}, function(err, docs)
 	{
 		//collection.character.name = "pasta";
-		console.log(docs);
+		//console.log(docs);
 		res.send((err == null) ? {msg: ""} : {msg: err});
 
 	});

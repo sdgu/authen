@@ -1,11 +1,30 @@
 $(document).ready(function() 
 {
 	$("#btnKeySearch").on("click", getByKeyword);
+
+
+
+
+
+
 });
+
+
+$(".goTo").on("click", test);
+function test(event)
+{
+	event.preventDefault();
+
+	var subject = $(this).attr("rel");
+
+	alert(subject);
+}
 
 function getByKeyword(event)
 {
 	event.preventDefault();
+
+
 
 	var charRes = "";
 	var storyRes = "";
@@ -35,8 +54,12 @@ function getByKeyword(event)
 			var f = new Fuse(data, options);
 			charRes = f.search(query);
 			
+			charQueryContent += '<script>$(".goTo").on("click", test); function test(event) { event.preventDefault(); var subject = $(this).attr("rel"); alert(subject); }</script>';
+			// '<script>
+			// 	$(".goTo").on("click", function(){alert("pasta");});
+			// </script>';
 
-			charQueryContent = "<strong>Characters</strong> <br />";
+			charQueryContent += "<strong>Characters</strong> <br /><div id='toc'>";
 
 			charDetailContent += '<table class="variousInfo">';
 			charDetailContent += '<tr><td><h2>Character Info</h2></td></tr>';
@@ -45,7 +68,7 @@ function getByKeyword(event)
 			$.each(charRes, function(index, value)
 			{
 				
-				charQueryContent += '<a href="#' + this.character.name + '">' + this.character.name + '</a><br />';
+				charQueryContent += '<a href="#" class="goTo" rel="' + this.character.name + '">' + this.character.name + '</a><br />';
 
 				charDetailContent += '<div class="charInfo" id="' + this.character.name + '">';
 
@@ -57,11 +80,11 @@ function getByKeyword(event)
 
 				charDetailContent += '<tr>';
 				charDetailContent += '<td class="titl"><strong>Formes: </strong></td>';
-				charDetailContent += '<td>' + this.character.formes + '</td></tr>';
+				charDetailContent += '<td>' + this.character.formes.join(", ") + '</td></tr>';
 
 				charDetailContent += '<tr>';
 				charDetailContent += '<td class="titl"><strong>Abilities: </strong></td>';
-				charDetailContent += '<td>' + this.character.abilities + '</td></tr>';
+				charDetailContent += '<td>' + this.character.abilities.join(", ") + '</td></tr>';
 
 				charDetailContent += '<tr>';
 				charDetailContent += '<td class="titl"><strong>Description: </strong></td>';
@@ -78,6 +101,8 @@ function getByKeyword(event)
 			});
 
 			charDetailContent += '</td></tr></table>';
+
+			charQueryContent += '</div>';
 
 			//alert(query);
 
@@ -99,7 +124,7 @@ function getByKeyword(event)
 
 			$.each(storyRes, function(index, vaule)
 			{
-				storyQueryContent += '<a href="#' + this.title + '">' + this.title + "</a><br />";
+				storyQueryContent += '<a href="#" class="goTo" rel="' + this.title + '">' + this.title + "</a><br />";
 
 				storyDetailContent += '<div class="storyInfo" id="' + this.title + '">';
 
@@ -111,11 +136,11 @@ function getByKeyword(event)
 
 				storyDetailContent += '<tr>';
 				storyDetailContent += '<td class="titl"><strong>Characters: </strong></td>';
-				storyDetailContent += '<td>' + this.characters + '</td></tr>';
+				storyDetailContent += '<td>' + this.characters.join(", ") + '</td></tr>';
 
 				storyDetailContent += '<tr>';
 				storyDetailContent += '<td class="titl"><strong>Tags: </strong></td>';
-				storyDetailContent += '<td>' + this.tags + '</td></tr>';
+				storyDetailContent += '<td>' + this.tags.join(", ") + '</td></tr>';
 
 				storyDetailContent += '<tr>';
 				storyDetailContent += '<td class="titl"><strong>Story: </strong></td>';

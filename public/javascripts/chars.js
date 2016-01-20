@@ -9,18 +9,19 @@ $(document).ready(function()
     // Populate the user table on initial page load
     populateTable();
    
-    
+
     $('#charList table tbody').on('click', 'td a.linkshowchar', showCharInfo);
 
-    $("#charList table tbody").on("click", "td a.linkshowauth", showAuthorInfo);
+
+
+    //$("#charList table tbody").on("click", "td a.linkshowauth", showAuthorInfo);
+    //alert("o.o");
+
 
     $("#charList table tbody").on("click", "td a.linkupdate", loadCharInfo);
-    //also make it jump down to the relevant area
-
 
     $("#btnAddChar").on("click", addChar);
     
-
     $("#btnUpdateChar").on("click", updateChar);
     //when page is loaded, number to display goes back to default 5
     $("#howMany option:eq(0)").prop("selected", true);
@@ -41,6 +42,7 @@ function addChar(event)
     event.preventDefault();
 
     //error things maybe
+    //alert("what");
 
     var newChar = 
     {
@@ -235,9 +237,11 @@ function showCharInfo(event)
 function loadCharInfo(event) 
 {
 
-
+    //alert("why");
     // Prevent Link from Firing
     event.preventDefault();
+
+
 
     $("html, body").animate({ scrollTop: $('#updateHere').offset().top }, 1000);
 
@@ -256,7 +260,7 @@ function loadCharInfo(event)
     var thisCharObject = charListData[arrayPosition];
     //Populate Info Box
     $("#updatingID").text(thisCharObject._id);
-    $("#updatingAuthor").text(thisCharObject.author);
+    //$("#updatingAuthor").text(thisCharObject.author);
 
     $('#updateCharName').val(thisCharObject.character.name);
     $('#updateFormes').val(thisCharObject.character.formes);
