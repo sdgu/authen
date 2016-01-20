@@ -14,10 +14,10 @@ $(".goTo").on("click", test);
 function test(event)
 {
 	event.preventDefault();
-
 	var subject = $(this).attr("rel");
-
 	alert(subject);
+	//scrolling doesn't seem to work
+    $("html, body").animate({ scrollTop: $('#' + subject).offset().top }, 1000);
 }
 
 function getByKeyword(event)
@@ -54,7 +54,7 @@ function getByKeyword(event)
 			var f = new Fuse(data, options);
 			charRes = f.search(query);
 			
-			charQueryContent += '<script>$(".goTo").on("click", test); function test(event) { event.preventDefault(); var subject = $(this).attr("rel"); alert(subject); }</script>';
+			charQueryContent += '<script>$(".goTo").on("click", test); function test(event) { event.preventDefault(); var subject = $(this).attr("rel"); alert(subject); $("html, body").animate({ scrollTop: $('#' + subject).offset().top }, 1000); }</script>';
 			// '<script>
 			// 	$(".goTo").on("click", function(){alert("pasta");});
 			// </script>';
