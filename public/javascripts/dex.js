@@ -627,8 +627,11 @@ function getByTag(event)
 				//alert(result[0]);
 			}
 		}
-			$("#displayHere").html(charQueryContent + "<br />" + storyQueryContent);
-			$("#displayDetails").html(charDetailContent + "<br />" + storyDetailContent);
+		
+			$("#displayHere").html(storyQueryContent);
+			$("#displayDetails").html(storyDetailContent);
+			// $("#displayHere").html(charQueryContent + "<br />" + storyQueryContent);
+			// $("#displayDetails").html(charDetailContent + "<br />" + storyDetailContent);
 			//$("#displayHere").html("<strong>Characters</strong> <br />" + charRes.join("<br />") + "<br />" + "<br /> <strong>Stories</strong> <br />" + storyRes.join("<br />"));
 			$("html,body").animate({scrollTop: 0}, 0); //100ms for example
 
@@ -726,7 +729,7 @@ function getByChar(event)
 
 			$.each(charRes, function(index, vaule)
 			{
-				charQueryContent += '<a href="#" class="goTo" rel="char' + i + index + '">' + this.character.name + "</a>";
+				charQueryContent += '<a href="#" class="goTo" rel="char' + i + index + '">' + this.character.name + "</a><br />";
 
 				charDetailContent += '<div class="charInfo" id="char' + i + index + '">';
 
@@ -815,7 +818,7 @@ function getByChar(event)
 
 
 
-			storyQueryContent += "<h4>Stories with " + '"' + query[i] + '"</h4>';
+			storyQueryContent += "<h4>Stories with the character " + '"' + query[i] + '"</h4>';
 
 			storyRes = f2.search(query[i]);
 			//alert(overlapping.length);
