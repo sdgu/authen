@@ -4,6 +4,7 @@ $(document).ready(function()
 	$("#btnKeySearch").on("click", getByKeyword);
 	$("#btnAuthSearch").on("click", getByAuthor);
 	$("#btnTagSearch").on("click", getByTag);
+	$("#btnCharSearch").on("click", getByChar);
 
 });
 
@@ -619,6 +620,264 @@ function getByTag(event)
 
 
 			storyQueryContent += '<h4>Closest matches to all</h4>';
+			for (var i = 0; i < result.length; i++)
+			{	
+				storyQueryContent += result[i].title + "<br />";
+				//result[0] is an array of jsons
+				//alert(result[0]);
+			}
+		}
+			$("#displayHere").html(charQueryContent + "<br />" + storyQueryContent);
+			$("#displayDetails").html(charDetailContent + "<br />" + storyDetailContent);
+			//$("#displayHere").html("<strong>Characters</strong> <br />" + charRes.join("<br />") + "<br />" + "<br /> <strong>Stories</strong> <br />" + storyRes.join("<br />"));
+			$("html,body").animate({scrollTop: 0}, 0); //100ms for example
+
+		});
+
+	});
+
+}
+
+function getByChar(event)
+{
+	event.preventDefault();
+
+//$("html, body").animate({ scrollTop: $("#" + subject).offset().top }, 1000);
+	
+
+	var charRes = "";
+	var storyRes = "";
+
+	var charQueryContent = "";
+	var storyQueryContent = "";
+
+	var charDetailContent = "";
+	var storyDetailContent = "";
+
+
+
+	$.getJSON("/characters/characterlist", function(data)
+	{
+
+		$.getJSON("/stories/storylist", function(dataStories)
+		{
+		 	var query;
+		 	var queryArr = $("#charSearch").val();
+			
+		 	if (queryArr.indexOf(", ") > -1)
+			{
+				query = queryArr.split(", ");
+			}
+			else if (queryArr.indexOf(",") > -1)
+			{
+				query = queryArr.split(",");
+			}
+			else
+			{
+				query = [queryArr];
+			}
+
+			//alert(query[0]);
+
+			var options = 
+			{
+				keys: ["character.name"],
+				id: "",
+				threshold: 0.3
+			}
+
+			var f = new Fuse(data, options);
+			
+			
+			charQueryContent += '<script>$(".goTo").on("click", test); function test(event) { event.preventDefault(); var subject = $(this).attr("rel"); $("html, body").animate({ scrollTop: $("#" + subject).offset().top }, 1000); }</script>';
+
+			charQueryContent += "<h3>Characters</h3>"
+
+			var overlappingChar = [];
+
+			charDetailContent += '<h2>Character Info</h2>'
+
+		for (var i = 0; i < query.length; i++)
+		{	
+
+
+			//storyRes is an array of the results matching the query
+			var prevRes = [];
+			prevRes = charRes;
+
+			charQueryContent += "<h4>Found by " + '"' + query[i] + '"</h4>';
+
+			charRes = f.search(query[i]);
+			//alert(overlapping.length);
+
+
+			if (intersect_safe(prevRes, charRes).length > 0)
+			{
+				overlappingChar.push(intersect_safe(prevRes, charRes));
+				//alert(overlapping[0][0].title);
+
+			}
+
+
+
+			charDetailContent += '<table class="variousInfo">';
+			//charDetailContent += '<tr><td><h3>Character: ' + query[i] + '</h3></td></tr>';
+			charDetailContent += '<tr><td>';
+
+			$.each(charRes, function(index, vaule)
+			{
+				charQueryContent += '<a href="#" class="goTo" rel="char' + i + index + '">' + this.character.name + "</a>";
+
+				charDetailContent += '<div class="charInfo" id="char' + i + index + '">';
+
+				charDetailContent += '<table>';
+
+				charDetailContent += '<tr>';
+				charDetailContent += '<td class="titl"><strong>Character Name: </strong></td>';
+				charDetailContent += '<td>' + this.character.name + '</td></tr>';
+
+				charDetailContent += '<tr>';
+				charDetailContent += '<td class="titl"><strong>Formes: </strong></td>';
+				charDetailContent += '<td>' + this.character.formes.join(", ") + '</td></tr>';
+
+				charDetailContent += '<tr>';
+				charDetailContent += '<td class="titl"><strong>Abilities: </strong></td>';
+				charDetailContent += '<td>' + this.character.abilities.join(", ") + '</td></tr>';
+
+				charDetailContent += '<tr>';
+				charDetailContent += '<td class="titl"><strong>Description: </strong></td>';
+				charDetailContent += '<td>' + this.character.description + '</td></tr>';
+
+				charDetailContent += '</table>';
+
+				charDetailContent += '</div>';
+
+			});
+
+			charDetailContent += '</td></tr></table>';
+		}
+
+		if (overlappingChar.length > 0)
+		{
+			var result = overlappingChar.shift().filter(function(v) 
+			{
+				return overlappingChar.every(function(a) {
+					return a.indexOf(v) !== -1;
+				});
+			});
+
+
+			charQueryContent += '<h4>Closest matches to all</h4>';
+			for (var i = 0; i < result.length; i++)
+			{	
+				charQueryContent += result[i].character.name;
+				//result[0] is an array of jsons
+				//alert(result[0]);
+			}
+		}
+
+
+
+
+			
+
+
+
+			//alert("query: " + query);
+
+			var options2 = 
+			{
+				keys: ["characters"],
+				id: "",
+				threshold: 0.33
+			}
+
+			var f2 = new Fuse(dataStories, options2);
+			
+			storyQueryContent += '<script>$(".goTo").on("click", test); function test(event) { event.preventDefault(); var subject = $(this).attr("rel"); $("html, body").animate({ scrollTop: $("#" + subject).offset().top }, 1000); }</script>';
+
+			storyQueryContent += "<h3>Stories</h3>"
+
+			var overlapping = [];
+
+
+
+			storyDetailContent += '<h2>Story Info</h2>'
+		for (var i = 0; i < query.length; i++)
+		{	
+
+
+			//storyRes is an array of the results matching the query
+			var prevRes = [];
+			prevRes = storyRes;
+
+
+
+
+
+			storyQueryContent += "<h4>Stories with " + '"' + query[i] + '"</h4>';
+
+			storyRes = f2.search(query[i]);
+			//alert(overlapping.length);
+
+
+			if (intersect_safe(prevRes, storyRes).length > 0)
+			{
+				overlapping.push(intersect_safe(prevRes, storyRes));
+				//alert(overlapping[0][0].title);
+
+			}
+
+
+
+			storyDetailContent += '<table class="variousInfo">';
+			storyDetailContent += '<tr><td><h3>Character: ' + query[i] + '</h3></td></tr>';
+			storyDetailContent += '<tr><td>';
+
+			$.each(storyRes, function(index, vaule)
+			{
+				storyQueryContent += '<a href="#" class="goTo" rel="story' + i + index + '">' + this.title + "</a><br />";
+
+				storyDetailContent += '<div class="storyInfo" id="story' + i + index + '">';
+
+				storyDetailContent += '<table>';
+
+				storyDetailContent += '<tr>';
+				storyDetailContent += '<td class="titl"><strong>Story Title: </strong></td>';
+				storyDetailContent += '<td>' + this.title + '</td></tr>';
+
+				storyDetailContent += '<tr>';
+				storyDetailContent += '<td class="titl"><strong>Characters: </strong></td>';
+				storyDetailContent += '<td>' + this.characters.join(", ") + '</td></tr>';
+
+				storyDetailContent += '<tr>';
+				storyDetailContent += '<td class="titl"><strong>Tags: </strong></td>';
+				storyDetailContent += '<td>' + this.tags.join(", ") + '</td></tr>';
+
+				storyDetailContent += '<tr>';
+				storyDetailContent += '<td class="titl"><strong>Story: </strong></td>';
+				storyDetailContent += '<td>' + this.story + '</td></tr>';
+
+				storyDetailContent += '</table>';
+
+				storyDetailContent += '</div>';
+
+			});
+
+			storyDetailContent += '</td></tr></table>';
+		}
+
+		if (overlapping.length > 0)
+		{
+			var result = overlapping.shift().filter(function(v) 
+			{
+				return overlapping.every(function(a) {
+					return a.indexOf(v) !== -1;
+				});
+			});
+
+
+			storyQueryContent += '<h4>Stories with all</h4>';
 			for (var i = 0; i < result.length; i++)
 			{	
 				storyQueryContent += result[i].title + "<br />";
