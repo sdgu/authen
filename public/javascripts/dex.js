@@ -386,6 +386,9 @@ function getByAuthor(event)
 
 }
 function intersect_safe(a, b) {
+
+	if (a.length == 0 && b.length == 0) return [];
+
     var t;
     if (b.length > a.length) t = b, b = a, a = t; // indexOf to loop over shorter
     return a.filter(function (e) {
@@ -400,7 +403,6 @@ function getByTag(event)
 
 //$("html, body").animate({ scrollTop: $("#" + subject).offset().top }, 1000);
 	
-
 	var charRes = "";
 	var storyRes = "";
 
@@ -410,16 +412,13 @@ function getByTag(event)
 	var charDetailContent = "";
 	var storyDetailContent = "";
 
-
-
 	$.getJSON("/characters/characterlist", function(data)
 	{
 
 		$.getJSON("/stories/storylist", function(dataStories)
 		{
 		 	var query;
-		 	var queryArr = $("#tagSearch").val();
-			
+		 	var queryArr = $("#tagSearch").val();	
 {
 		// 	//alert(query[0]);
 
@@ -523,8 +522,6 @@ function getByTag(event)
 				query = [queryArr];
 			}
 
-
-
 			//alert("query: " + query);
 
 			var options2 = 
@@ -542,29 +539,30 @@ function getByTag(event)
 
 			var overlapping = [];
 
+			storyDetailContent += '<h2>Story Info</h2>';
 
 
-			storyDetailContent += '<h2>Story Info</h2>'
 		for (var i = 0; i < query.length; i++)
 		{	
-
 
 			//storyRes is an array of the results matching the query
 			var prevRes = [];
 			prevRes = storyRes;
 
-
-
-
-
 			storyQueryContent += "<h4>Stories tagged by " + '"' + query[i] + '"</h4>';
+			
 
 			storyRes = f2.search(query[i]);
 			//alert(overlapping.length);
+			//alert(storyRes + "prev is " + prevRes);
 
+
+			//alert(intersect_safe(prevRes, storyRes).length);
 
 			if (intersect_safe(prevRes, storyRes).length > 0)
 			{
+				//alert(storyQueryContent);
+
 				overlapping.push(intersect_safe(prevRes, storyRes));
 				//alert(overlapping[0][0].title);
 
@@ -575,6 +573,8 @@ function getByTag(event)
 			storyDetailContent += '<table class="variousInfo">';
 			storyDetailContent += '<tr><td><h3>Tag: ' + query[i] + '</h3></td></tr>';
 			storyDetailContent += '<tr><td>';
+
+
 
 			$.each(storyRes, function(index, vaule)
 			{
@@ -647,6 +647,8 @@ function getByChar(event)
 
 //$("html, body").animate({ scrollTop: $("#" + subject).offset().top }, 1000);
 	
+	// $("#displayHere").html("");
+	// $("#displayDetails").html("");
 
 	var charRes = "";
 	var storyRes = "";
