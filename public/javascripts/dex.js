@@ -1,5 +1,6 @@
 $(document).ready(function() 
 {
+
 	$("#btnKeySearch").on("click", getByKeyword);
 	$("#btnAuthSearch").on("click", getByAuthor);
 	$("#btnTagSearch").on("click", getByTag);
@@ -116,7 +117,7 @@ function getByKeyword(event)
 			// 	$(".goTo").on("click", function(){alert("pasta");});
 			// </script>';
 
-			charQueryContent += "<strong>Characters</strong> <br />";
+			charQueryContent += "<h4>Characters</h4>";
 
 			var overlapping = [];
 
@@ -197,7 +198,7 @@ function getByKeyword(event)
 			var f2 = new Fuse(dataStories, options2);
 			
 
-			storyQueryContent = "<strong>Stories</strong> <br />"
+			storyQueryContent = "<h4>Stories</h4>"
 
 			storyRes = f2.search(query);
 
@@ -240,6 +241,7 @@ function getByKeyword(event)
 			$("#displayHere").html(charQueryContent + "<br />" + storyQueryContent);
 			$("#displayDetails").html(charDetailContent + "<br />" + storyDetailContent);
 			//$("#displayHere").html("<strong>Characters</strong> <br />" + charRes.join("<br />") + "<br />" + "<br /> <strong>Stories</strong> <br />" + storyRes.join("<br />"));
+			$("html,body").animate({scrollTop: 0}, 0); //100ms for example
 
 		});
 
@@ -250,6 +252,8 @@ function getByKeyword(event)
 function getByAuthor(event)
 {
 	event.preventDefault();
+
+
 
 	var charRes = "";
 	var storyRes = "";
@@ -278,7 +282,7 @@ function getByAuthor(event)
 
 			charQueryContent += '<script>$(".goTo").on("click", test); function test(event) { event.preventDefault(); var subject = $(this).attr("rel"); $("html, body").animate({ scrollTop: $("#" + subject).offset().top }, 1000); }</script>';
 
-			charQueryContent += "<strong>Characters</strong> <br /><div id='toc'>";
+			charQueryContent += "<h4>Characters</h4><div id='toc'>";
 
 			charDetailContent += '<table class="variousInfo">';
 			charDetailContent += '<tr><td><h2>Character Info</h2></td></tr>';
@@ -334,7 +338,7 @@ function getByAuthor(event)
 			var f = new Fuse(storyData, storyOptions);
 			storyRes = f.search(query);
 
-			storyQueryContent = "<strong>Stories</strong> <br />"
+			storyQueryContent = "<h4>Stories</h4>"
 
 			storyDetailContent += '<table class="variousInfo">';
 			storyDetailContent += '<tr><td><h2>Story Info</h2></td></tr>';
@@ -374,6 +378,7 @@ function getByAuthor(event)
 
 			$("#displayHere").html(charQueryContent + "<br />" + storyQueryContent);
 			$("#displayDetails").html(charDetailContent + "<br />" + storyDetailContent);
+			$("html,body").animate({scrollTop: 0}, 0); //100ms for example
 
 		});
 	});
@@ -517,6 +522,8 @@ function getByTag(event)
 				query = [queryArr];
 			}
 
+
+
 			//alert("query: " + query);
 
 			var options2 = 
@@ -530,10 +537,13 @@ function getByTag(event)
 			
 			storyQueryContent += '<script>$(".goTo").on("click", test); function test(event) { event.preventDefault(); var subject = $(this).attr("rel"); $("html, body").animate({ scrollTop: $("#" + subject).offset().top }, 1000); }</script>';
 
-			storyQueryContent += "<strong>Stories</strong> <br />"
+			storyQueryContent += "<h3>Stories</h3>"
 
 			var overlapping = [];
 
+
+
+			storyDetailContent += '<h2>Story Info</h2>'
 		for (var i = 0; i < query.length; i++)
 		{	
 
@@ -546,7 +556,7 @@ function getByTag(event)
 
 
 
-			storyQueryContent += "Stories tagged by " + '"' + query[i] + '" <br />';
+			storyQueryContent += "<h4>Stories tagged by " + '"' + query[i] + '"</h4>';
 
 			storyRes = f2.search(query[i]);
 			//alert(overlapping.length);
@@ -560,8 +570,9 @@ function getByTag(event)
 			}
 
 
+
 			storyDetailContent += '<table class="variousInfo">';
-			storyDetailContent += '<tr><td><h2>Story Info</h2></td></tr>';
+			storyDetailContent += '<tr><td><h3>Tag: ' + query[i] + '</h3></td></tr>';
 			storyDetailContent += '<tr><td>';
 
 			$.each(storyRes, function(index, vaule)
@@ -597,18 +608,28 @@ function getByTag(event)
 			storyDetailContent += '</td></tr></table>';
 		}
 
+		if (overlapping.length > 0)
+		{
 			var result = overlapping.shift().filter(function(v) 
 			{
 				return overlapping.every(function(a) {
 					return a.indexOf(v) !== -1;
 				});
 			});
-			//result[0] is an array of jsons
-			alert(result[0]);
 
+
+			storyQueryContent += '<h4>Closest matches to all</h4>';
+			for (var i = 0; i < result.length; i++)
+			{	
+				storyQueryContent += result[i].title + "<br />";
+				//result[0] is an array of jsons
+				//alert(result[0]);
+			}
+		}
 			$("#displayHere").html(charQueryContent + "<br />" + storyQueryContent);
 			$("#displayDetails").html(charDetailContent + "<br />" + storyDetailContent);
 			//$("#displayHere").html("<strong>Characters</strong> <br />" + charRes.join("<br />") + "<br />" + "<br /> <strong>Stories</strong> <br />" + storyRes.join("<br />"));
+			$("html,body").animate({scrollTop: 0}, 0); //100ms for example
 
 		});
 
