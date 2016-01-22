@@ -188,7 +188,7 @@ router.post("/addstory", function(req, res, next)
 		story: story
 	});
 
-	console.log(req.body);
+	//console.log(req.body);
 
 	works.findOneAndUpdate(
 	{

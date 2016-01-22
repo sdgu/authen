@@ -1,0 +1,112 @@
+extend layoutdict
+
+block content
+	h1= title
+
+	if (!user)
+		form(role="form", action="/dictionary/login", method="post", style="max-width: 300px;")
+			.form-group
+				input.form-control(type="text" name="username" placeholder="username")
+			br
+			.form-group
+				input.form-control(type="password" name="password" placeholder="password")
+			br
+			button.btn.btn-default(type="submit") Login
+			| 
+			a(href="/")
+				button.btn.btn-primary(type="button") Cancel
+
+	else
+		p logged in as #{user.username}
+
+
+		#storyInfo
+			table
+				tr
+					td.titl
+						strong Word: 
+					td
+						| <span id="word"></span>
+				tr
+					td.titl
+						strong Pronunciation: 
+					td
+						| <span id="pro"></span>
+				tr
+					td.titl
+						strong Part of Speech: 
+					td
+						| <span id="speech"></span>
+				tr
+					td.titl
+						strong Description: 
+					td
+						| <span id="desc"></span>
+				tr
+					td.titl
+						strong Example: 
+					td
+						| <span id="exam"></span>
+				tr
+					td.titl
+						strong Synonyms: 
+					td
+						| <span id="syn"></span>
+
+
+
+
+		#storyList
+			table
+				thead
+					th Word
+					th Update
+				tbody
+					
+
+
+
+		#addEntry
+			h3 Add Entry
+		
+			fieldset
+				h4 Author: 
+				#author #{user.username}
+				h4 Word: 
+				input#inputWord(type="text")
+				h4 Pronunciation: 
+				input#inputPronunciation(type="text")
+				h4 Part of Speech: 
+				input#inputPart(type="text")
+				h4 Description: 
+				textarea#inputDesc(cols="30" rows="10")
+				h4 Example: 
+				textarea#inputEx(cols="30" rows="10")
+				h4 Synonyms:
+				input#inputSyn(type="text")
+				br
+				br
+				button#btnAddEntry Add Entry
+
+		#updateEntry
+			h3 Update Entry
+		
+			fieldset
+				p#updatingID o.o
+				h4 Editor: 
+				#editor #{user.username}
+				h4 Update Word: 
+				input#updateWord(type="text")
+				h4 Update Pronunciation: 
+				input#updatePronunciation(type="text")
+				h4 Update Part of Speech: 
+				input#updatePart(type="text")
+				h4 Update Description: 
+				textarea#updateDesc(cols="30" rows="10")
+				h4 Update Example: 
+				textarea#updateEx(cols="30" rows="10")
+				h4 Update Synonyms:
+				input#updateSyn(type="text")
+				br
+				br
+				button#btnUpdateEntry Update Entry

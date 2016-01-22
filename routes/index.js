@@ -18,7 +18,6 @@ function ensureAuthenticated(req, res, next) {
 /* GET home page. */
 router.get('/', function(req, res, next) 
 {
-	
 	if (ensureAuthenticated(req, res, next))
 	{
 		res.render('index', 
@@ -35,8 +34,6 @@ router.get('/', function(req, res, next)
   			user: ""
   		});
 	}
-
-
 });
 
 router.get("/register", function(req, res)

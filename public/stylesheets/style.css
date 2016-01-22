@@ -168,6 +168,7 @@ a {
 	display: inline-block;
 	vertical-align: top;
 	min-width: 8rem;
+
 	
 }
 
@@ -189,4 +190,30 @@ fieldset {
 #updatingID, #updatingStoryID
 {
     display: none;
+}
+
+ul
+{
+    list-style-type: none;
+}
+
+.update
+{
+    font-size: 10px;
+}
+
+#wordList
+{
+    margin: 0px 0px 0px -50px;
+}
+
+#wordList tr td 
+{
+    padding-right: 10px;
+
+}
+
+#test
+{
+    float: right;
 }

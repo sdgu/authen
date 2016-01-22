@@ -24,7 +24,7 @@ var characters = require('./routes/characters');
 var authors = require("./routes/authors");
 var stories = require("./routes/stories");
 var ocappadex = require("./routes/ocappadex");
-
+var dictionary = require("./routes/dictionary");
 
 var app = express();
 
@@ -56,6 +56,7 @@ app.use('/characters', characters);
 app.use("/authors", authors);
 app.use("/stories", stories);
 app.use("/ocappadex", ocappadex);
+app.use("/dictionary", dictionary);
 
 
 
